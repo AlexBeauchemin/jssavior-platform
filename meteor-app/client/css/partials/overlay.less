@@ -1,0 +1,80 @@
+.overlay-container {
+    display: inline-block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    * {
+        transition: background-color 0.3s ease;
+    }
+
+    .overlay-content {
+        background-color: #fff;
+        border-radius: 10px;
+        display: inline-block;
+        left: -50%;
+        min-width: 270px;
+        padding: 10px 25px;
+        position: relative;
+        text-align: center;
+
+        .overlay-close {
+            .at2x('/img/sprite-burger.png', 27px);
+            background-color: transparent;
+            background-position: 0 -27px;
+            border: none;
+            color: transparent;
+            height: 27px;
+            outline: none;
+            overflow: hidden;
+            position: absolute;
+            right: -27px;
+            text-indent: 200%;
+            top: -30px;
+            width: 27px;
+            z-index: 100;
+        }
+    }
+
+    .form-group {
+        width: 100%;
+
+        input, input.form-control , button {
+            margin-bottom: 5px;
+            width: 100%;
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1030;
+}
+
+/* Effects */
+.overlay-simplegenie {
+    visibility: hidden;
+    -webkit-transform: translateY(60%) scale(0);
+    transform: translateY(60%) scale(0);
+    -webkit-transition: -webkit-transform 0.4s, visibility 0s 0.4s;
+    transition: transform 0.4s, visibility 0s 0.4s;
+
+    &.no-transition {
+        display: none;
+        transition: none;
+    }
+}
+
+.overlay-simplegenie.open {
+    visibility: visible;
+    -webkit-transform: translateY(0%) scale(1);
+    transform: translateY(0%) scale(1);
+    -webkit-transition: -webkit-transform 0.4s;
+    transition: transform 0.4s;
+}

@@ -1,0 +1,60 @@
+<template name="project-exclude">
+    <div class="container container-project-exclude">
+        <h1>Exclusions</h1>
+        <p><a href="/project/{{project._id}}"><span class="glyphicon glyphicon-chevron-left"></span> Go back to project {{project.name}}</a></p>
+        <div class="row space-top">
+            <div class="col-sm-6">
+                <input type="text" placeholder="File Name" name="filename" class="form-control" /><br />
+                <div class="radio-inline">
+                    <label><input type="radio" name="filename-sensivity" value="exact" checked/>Exact</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="filename-sensivity" value="contain" />Contain</label>
+                </div>
+                <button class="btn btn-primary right" role="button" data-action="add-file-exclude">Add File(s)</button>
+            </div>
+            <div class="col-sm-6">
+                <input type="text" placeholder="Error message" name="error" class="form-control" /><br />
+                <div class="radio-inline">
+                    <label><input type="radio" name="error-sensivity" value="exact" checked/>Exact</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="error-sensivity" value="contain" />Contain</label>
+                </div>
+                <button class="btn btn-primary right" role="button" data-action="add-error-exclude">Add Error(s)</button>
+            </div>
+        </div>
+
+        {{#if exclusions}}
+        <div class="panel panel-default margin-top">
+            <div class="panel-heading">Active exclusions</div>
+            <div class="panel-body">
+                <p>Exclusions are active only on new errors (and will not be saved in the database). Old errors matching exclusions will still be visible and new errors matching exclusions will not be saved in the database (will not show up if the exclusion is removed).</p>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Type</th>
+                        <th>Value</th>
+                        <th>Sensivity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each exclusions}}
+                    <tr>
+                        <td>
+                            <button class="btn btn-xs btn-danger" type="button" data-action="delete-exclusion" data-id="{{_id}}">X</button>
+                        </td>
+                        <td>{{type}}</td>
+                        <td>{{value}}</td>
+                        <td>{{sensivity}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{/if}}
+    </div>
+</template>

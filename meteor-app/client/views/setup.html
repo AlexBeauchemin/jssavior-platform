@@ -1,0 +1,94 @@
+<template name="setup">
+    <div class="container container-setup">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-center">How to install and use JSSavior in your project</h2>
+                <div class="space-top">
+                    <ul style="list-style: decimal;">
+                        <li>
+                            <p>Create an account and log in</p>
+                        </li>
+                        <li>
+                            <p>Create a project</p>
+                        </li>
+                        <li>
+                            Add the javascript file <a href="http://cdn.jsdelivr.net/jssavior/latest/jssavior.min.js">jssavior.min.js</a> in your project (this file should be the first javascript file to load in your project, ideally the first script to be loaded in the header) <br />
+                            <code>
+                                <p>&lt;script src="//cdn.jsdelivr.net/jssavior/latest/jssavior.min.js"&gt;&lt;/script&gt;</p>
+                            </code>
+                        </li>
+                        <li>
+                            Add the ID of your project right above the code from step 3
+                            <code>
+                                <p>&lt;script&gt; <br />
+                                    &nbsp;&nbsp;var JSSaviorConfig = { <br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;projectId: 'xxxxxxxxx' <br />
+                                    &nbsp;&nbsp;}; <br />
+                                    &lt;/script&gt;</p>
+                            </code>
+                        </li>
+                        <li>
+                            <p>Go to your project and add the domain that you will log your errors from. If there is a javascript error in your project and the domain is not listed in the project's domains list, the error will not be logged. You can use wildcards if you have multiple subdomains (*.mydomain.com)</p>
+                        </li>
+                        <li>
+                            <p>That's it! JSSavior is now ready to log your bad coding! :)</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="space-top">Advanced features</h3>
+                <ul class="space-top">
+                    <li>
+                        <p>You can test if JSSavior is configured correctly and working well by executing this line of code in your code or in the console of your browser</p>
+                        <code>
+                            <p>
+                                JSSavior.test('error test');
+                            </p>
+                        </code>
+                    </li>
+                    <li>
+                        <p>If you want to load jssavior asynchronously and catch any errors that happen before the file is loaded, add this code at the top of the body of your page:</p>
+                        <code>
+                            <p>
+                                &lt;script&gt; <br />
+                                &nbsp;&nbsp;window.onerror = function(message,file,line, column, errorObj) {<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;JSSaviorConfig.errorQueue.push({<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;column: column,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errorObj: errorObj,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;file: file,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;line: line,<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message: message<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;});<br />
+                                &nbsp;&nbsp;};<br />
+                                &lt;/script&gt;
+                            </p>
+                        </code>
+
+                        Then, add the "errorQueue" property to the JSSaviorConfig object:
+                        <code>
+                            <p>&lt;script&gt; <br />
+                                &nbsp;&nbsp;var JSSaviorConfig = { <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;projectId: 'xxxxxxxxx', <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;errorQueue: [] <br />
+                                &nbsp;&nbsp;}; <br />
+                                &lt;/script&gt;</p>
+                        </code>
+                    </li>
+                    <li>
+                        You can also provide your own information to jssavior to help you debug your errors. It can be done by simply adding a string value to the "context" property of the JSSaviorConfig object:
+                        <code>
+                            <p>&lt;script&gt; <br />
+                                &nbsp;&nbsp;var JSSaviorConfig = { <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;projectId: 'xxxxxxxxx', <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;errorQueue: [], <br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;context: 'myIdentifier', <br />
+                                &nbsp;&nbsp;}; <br />
+                                &lt;/script&gt;</p>
+                        </code>
+                        By adding, for example, a user id, username or session id in the context value, you will be able to have more information on every unique error and group them. Also, the time will be automatically appended to the context value in the error list.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

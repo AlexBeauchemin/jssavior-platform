@@ -1,0 +1,194 @@
+<template name="project">
+    <div class="container-fluid container-project">
+        <div class="row clearfix">
+            <!-- TODO: Put menu in different view -->
+            <div class="col-lg-2 col-projects">
+                <h2>Projects <button class="btn btn-primary right" data-action="create" aria-label="Left Align"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></h2>
+                <ul class="list-group">
+                    <!-- TODO: Checkbox to filter which project's errors should be visible on dashboard -->
+                    <li class="list-group-item project dashboard">
+                        <a class="clearfix" href="/dashboard">
+                            <span class="project-name">Dashboard</span>
+                        </a>
+                    </li>
+                    {{#each projects}}
+                    <li class="list-group-item project {{isCurrentProject _id}}">
+                        <a class="clearfix" href="/project/{{_id}}">
+                            <span class="project-name">{{name}}</span>
+                            <span class="col-xs-6 project-info"><strong>Errors:</strong><br />{{totalErrors}}</span>
+                            <span class="col-xs-6 project-info"><strong>Domains:</strong><br />{{nbDomains}}</span>
+                            <!--<span class="col-xs-4 project-info">Excludes: {{nbExclusions}}</span>-->
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <p class="text-right"><button class="btn btn-primary" data-action="create" aria-label="Left Align"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create a new project</button></p>
+            </div>
+
+            <div class="col-xs-12 col-lg-10">
+                {{#unless project.domains}}
+                    <div class="alert alert-danger">You need a minimum of one domain. Please add a domain. You can use wildcards for subdomains: *.mydomain.com</div>
+                {{/unless}}
+            </div>
+
+            <div class="col-xs-12 col-options-button visible-xs visible-sm visible-md">
+                <button type="button"
+                        data-toggle="collapse"
+                        data-target="#options"
+                        class="collapsed btn btn-primary">Show options</button>
+            </div>
+
+            <div id="options" class="col-xs-12 col-lg-2 right collapse clearfix">
+                <p class="alert alert-info full-width">ID: {{project._id}}<a href="/setup" class="setup-info glyphicon glyphicon-info-sign"></a></p>
+
+                {{#if project.totalErrorsByBrowser.length}}
+                    <div class="panel panel-default panel-filters">
+                        <div class="panel-heading">Filters</div>
+                        <div class="panel-body">
+                            <ul class="list-group">
+
+                                {{#each project.totalErrorsByBrowser}}
+                                    <li class="list-group-item">
+                                        <label><input type="checkbox" name="browser" value="{{name}}" checked> {{name}} ({{total}})</label>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
+                {{/if}}
+                <div class="panel panel-default panel-domains">
+                    <div class="panel-heading">Domains</div>
+                    <div class="panel-body">
+                        <ul class="list-group list-group-domains">
+                            <li class="list-group-item-header">
+                                <input type="text" name="add-domain" placeholder="mysite.com" class="full-width form-control">
+                                <button class="btn btn-sml btn-primary full-width" role="button" data-action="add-domain">Add</button>
+                            </li>
+                            {{#each project.totalErrorsByDomain}}
+                                <li class="list-group-item">
+                                    <!--<label><input type="checkbox" name="domain" value="{{name}}" {{isCheckboxInSession "domains" name}}> {{name}} {{#if count}}({{count}}){{/if}}</label>-->
+                                    <label>
+                                        <input type="checkbox" name="domain" value="{{name}}" checked> {{name}} {{#if total}}({{total}}){{/if}}
+                                        <span class="actions fade"><button class="btn btn-xs btn-danger" role="button" data-action="delete-domain"><span class="glyphicon glyphicon-remove"></span></button></span>
+                                    </label>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+                {{#if project.totalErrorsByBrowser.length}}
+                    <div class="button-wrapper">
+                        <button role="button" class="btn btn-warning full-width" data-action="delete-errors">Empty errors</button>
+                        <button role="button" class="btn btn-danger half-width btn-out" data-action="delete-errors-yes"><span class="glyphicon glyphicon-ok"></span> Yes</button>
+                        <button role="button" class="btn half-width btn-out" data-action="delete-errors-no"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+                    </div>
+                {{/if}}
+                <div class="button-wrapper">
+                    <button role="button" class="btn btn-danger full-width" data-action="delete-project">Delete project</button>
+                    <button role="button" class="btn btn-danger half-width btn-out" data-action="delete-project-yes"><span class="glyphicon glyphicon-ok"></span> Yes</button>
+                    <button role="button" class="btn half-width btn-out" data-action="delete-project-no"><span class="glyphicon glyphicon-ban-circle"></span> Cancel</button>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-xs-12 col-main clearfix">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Recent errors <a href="/exclude/{{project._id}}" class="right">Exclusion list</a></div>
+                    <div class="panel-body">
+                        {{#if errors}}
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th><a href="#" data-action="changeOrder" data-order="count">#</a></th>
+                                <th><a href="#" data-action="changeOrder" data-order="message">Error</a></th>
+                                <th><a href="#" data-action="changeOrder" data-order="file">File (line:column)</a></th>
+                                <th><a href="#" data-action="changeOrder" data-order="domain">Domain</a></th>
+                                <th><a href="#" data-action="changeOrder" data-order="date"><span class="glyphicon glyphicon-time"></span></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each errors}}
+                            <tr class="error">
+                                <td>{{count}}</td>
+                                <td class="error-msg">{{message}}</td>
+                                <td class="error-file">{{removeDomain file}} <span class="badge">{{line}}{{#if column}}:{{column}}{{/if}}</span></td>
+                                <td>{{domain}}</td>
+                                <td class="time">{{dateFormatFromNow date}}</td>
+                            </tr>
+                            <tr class="error-more-info">
+                                <td></td>
+                                <td colspan="4">
+                                    <div class="error-more-info-content">
+                                        Browser: {{browser.name}} {{browser.version}}<br />
+                                        <!-- TODO: Show all browser info -->
+                                        Date: ({{dateFormat date}})<br />
+                                        Domain: {{domain}}<br />
+                                        Page: {{url}}<br />
+                                        <span class="stacktrace">Stacktrace: {{formatStacktrace stack.stack}}</span>
+                                        {{#if context}}
+                                        <br />
+                                        Context: {{getFirstContext context}} (<a href="#" data-action="show-all-context">Show all</a>)
+                                        {{/if}}
+                                        <!--IP: {{clientInfo.ip}}<br />-->
+                                        <!--Location: {{clientInfo.city}}, {{clientInfo.country_name}}-->
+                                        <div class="actions">
+                                            <button class="btn btn-xs btn-warning" role="button" data-action="add-message-exclude"><span class="glyphicon glyphicon-plus"></span> Add <span class="bold">error</span> to exclude list</button>
+                                            <button class="btn btn-xs btn-warning" role="button" data-action="add-file-exclude"><span class="glyphicon glyphicon-plus"></span> Add <span class="bold">file</span> to exclude list</button>
+                                            <button class="btn btn-xs btn-danger" role="button" data-action="delete-error"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Empty row to keep zebra style -->
+                            <tr class="empty"></tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        {{else}}
+                        <p>The error list is empty.</p>
+                        {{/if}}
+                    </div>
+                </div>
+                {{#if errors}}
+                    {{#unless maxReached}}
+                        <p class="text-center"><button class="btn btn-primary load-more" id="btn-load-more">Load more</button></p>
+                    {{/unless}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay overlay-simplegenie no-transition" id="overlay-context">
+        <div class="overlay-container">
+            <div class="overlay-content">
+                <button type="button" class="overlay-close" data-action="overlay-close">Close</button>
+                {{#if currentItemContext}}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each currentItemContext}}
+                    <tr class="error">
+                        <td>{{value}}</td>
+                        <td class="time">{{dateFormatFromNow date}}</td>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay-create" class="overlay overlay-simplegenie">
+        <div class="overlay-container">
+            <div class="overlay-content">
+                <button type="button" class="overlay-close" data-action="overlay-close">Close</button>
+                {{> [project-create]}}
+            </div>
+        </div>
+    </div>
+</template>

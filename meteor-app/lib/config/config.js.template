@@ -1,0 +1,54 @@
+appConfig = {
+  errorsPerPage: 20,
+  stripe: {
+    dev: {
+      publicKey: ""
+    },
+    prod: {
+      publicKey: ""
+    }
+  }
+};
+
+if(Meteor.isClient) {
+
+}
+
+if(Meteor.isServer) {
+  appConfig.admin = {
+    email: '',
+    password: ''
+  };
+
+  appConfig.mailgun = {
+    password: '',
+    apiKey: ''
+  };
+
+  appConfig.serviceConfiguration = {
+    github: {
+      dev: {
+        clientId: '',
+        secret: ''
+      },
+      prod: {
+        clientId: '',
+        secret: ''
+      }
+    },
+    // https://console.developers.google.com/project
+    google: {
+      dev: {
+        clientId: '',
+        secret: ''
+      },
+      prod: {
+        clientId: '',
+        secret: ''
+      }
+    }
+  };
+
+  appConfig.stripe.dev.secretKey = "";
+  appConfig.stripe.prod.secretKey = "";
+}

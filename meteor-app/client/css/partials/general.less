@@ -1,0 +1,156 @@
+* {
+    //general rules , doesn't really affects performances
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: @body-bg;
+    padding-top: 45px;
+
+    &>.wrapper {
+        padding-bottom: 120px;
+    }
+
+    @media (min-width: 768px) {
+        padding-top: 75px;
+    }
+}
+
+h2 {
+    font-size: 22px;
+
+    @media (min-width: 768px) {
+        font-size: 30px;
+    }
+}
+
+h3 {
+    font-size: 18px;
+
+    @media (min-width: 768px) {
+        font-size: 24px;
+    }
+}
+
+a {
+    vertical-align: initial;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -120px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer-wrapper {
+    background-color: @body-bg;
+    margin: 20px 0 0 0;
+    text-align: center;
+    width: 100%;
+
+    hr {
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    footer {
+        margin-bottom: 0;
+        img { height: 20px; }
+        &>div { margin-bottom: 10px; }
+    }
+
+    @media (min-width: 768px) {
+        bottom: 0;
+        position: fixed;
+
+        footer {
+            margin-bottom: 10px;
+
+            &>div {
+                display: inline-block;
+                float: right;
+
+                &:first-child {
+                    float: left;
+                }
+            }
+        }
+    }
+}
+
+.container-fluid {
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+form {
+    padding: 20px 0;
+}
+
+.bold, strong {
+    vertical-align: initial;
+}
+
+li.expand {
+    .error-more-info {
+        height: auto;
+        opacity: 1;
+    }
+
+    .show-more {
+        display: none;
+    }
+}
+
+.panel {
+    .list-group {
+        margin-bottom: 0;
+
+        .list-group-item {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin-bottom: 0;
+            padding: 10px 0;
+            word-break: break-all;
+
+            &:first-child {
+                border: none;
+            }
+        }
+
+        .list-group-item-header {
+            list-style: none;
+            margin-bottom: 10px;
+
+            input { margin-bottom: 5px; }
+        }
+    }
+}
+
+.glyphicon {
+    top: 0;
+}
+
+@media (min-width: 768px) {
+    .wrapper {
+        margin: 0 auto -90px;
+    }
+
+    body>.wrapper {
+        padding-bottom: 90px;
+    }
+}
+
+@media (max-width: 767px) {
+    body>.wrapper {
+        overflow-x: hidden;
+        width: 100%;
+    }
+}

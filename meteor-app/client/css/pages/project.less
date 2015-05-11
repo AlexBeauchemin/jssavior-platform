@@ -1,0 +1,119 @@
+.container-project {
+    padding-top: 25px;
+
+    .actions {
+        margin-top: 10px;
+
+        .bold {
+            color: yellow;
+        }
+    }
+
+    .col-options-button { margin-bottom: 20px; }
+
+    .panel-domains {
+        .panel-body {
+          padding-bottom: 0;
+        }
+
+        label {
+            display: inline-block;
+            position: relative;
+            width: 100%;
+        }
+
+        .actions {
+            margin: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
+    .col-projects {
+        display: none;
+    }
+
+    .col-main {
+        p.alert-info { display: none; }
+    }
+
+    td.time {
+        min-width: 100px;
+    }
+
+    tr.error {
+        transition: none;
+
+        td {
+            cursor: pointer;
+
+            &.error-msg, &.error-file {
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+        }
+    }
+
+    tr.error-more-info {
+
+        &.open {
+            td {
+                border-top: 1px solid #ddd;
+                padding: 8px;
+            }
+        }
+
+        td {
+            border-top: 1px solid transparent;
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+
+        .error-more-info-content {
+            display: none;
+            transition: none;
+        }
+    }
+
+    tr.empty {
+        cursor: default;
+        display: none;
+    }
+
+    @media only screen and (min-width: 1200px) {
+        padding-top: 0;
+
+        .col-projects {
+            display: block;
+        }
+
+        #options { display: block; }
+        .col-options-button { display: none; }
+
+        .col-options {
+            .alert-info { display: none; }
+            .btn {
+                width: 100%;
+
+                &[data-action="delete-domain"] {
+                    width: auto;
+                }
+
+                &.half-width {
+                    width: 48%;
+                }
+
+            }
+        }
+
+        .col-main {
+            p.alert-info { display: block; }
+        }
+    }
+
+    @media only screen and (max-width: 1199px) {
+        .col-options { width: 100%; }
+        .col-projects { display: none; }
+    }
+}

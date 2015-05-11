@@ -1,0 +1,88 @@
+<template name="dashboard">
+    <div class="container-fluid container-dashboard">
+        <div class="row clearfix">
+            {{#if projects}}
+            <div class="col-lg-2 col-md-3 dashboard-menu">
+                <h2>Projects <button class="btn btn-primary right" data-action="create" aria-label="Left Align"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></h2>
+
+                <button type="button"
+                        data-toggle="collapse"
+                        data-target="#projects-list"
+                        class="visible-xs visible-sm collapsed btn btn-primary">Select project</button>
+
+                <ul class="list-group collapse" id="projects-list">
+                    <!-- TODO: Checkbox to filter which project's errors should be visible on dashboard -->
+                    <li class="list-group-item project dashboard active">
+                        <a class="clearfix" href="/dashboard">
+                            <span class="project-name">Dashboard</span>
+                        </a>
+                    </li>
+                    {{#each projects}}
+                    <li class="list-group-item project">
+                        <a class="clearfix" href="/project/{{_id}}">
+                            <span class="project-name">{{name}}</span>
+                            <span class="col-xs-6 project-info"><strong>Errors:</strong> <br />{{totalErrors}}</span>
+                            <span class="col-xs-6 project-info"><strong>Domains:</strong> <br />{{nbDomains}}</span>
+                            <!--<span class="col-xs-4 project-info">Excludes: {{nbExclusions}}</span>-->
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+                <p class="text-right visible-lg"><button class="btn btn-primary" data-action="create" aria-label="Left Align"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create a new project</button></p>
+            </div>
+            <div class="col-xs-12 col-md-9 col-lg-10">
+                <h2>Most Recent Errors</h2>
+                <div class="panel panel-default">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Error</th>
+                                <th>File (line:column)</th>
+                                <th>Browser</th>
+                                <th>Project</th>
+                                <th><span class="glyphicon glyphicon-time"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each errors}}
+                            <tr class="error">
+                                <td class="error-msg">{{message}}</td>
+                                <td class="error-file">{{removeDomain file}} <span class="badge">{{line}}{{#if column}}:{{column}}{{/if}}</span></td>
+                                <td>{{browser.name}} {{browser.version}}</td>
+                                <td><a href="/project/{{project}}">{{projectName}}</a></td>
+                                <td class="time">{{dateFormatFromNow date}}</td>
+                            </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+
+                        {{#unless projects}}
+                        <p>There is no error to display</p>
+                        {{/unless}}
+                    </div>
+                </div>
+
+                {{#if errors.count}}
+                {{#unless maxReached}}
+                <p class="text-center"><button class="btn btn-primary load-more" id="btn-load-more">Load more</button></p>
+                {{/unless}}
+                {{/if}}
+            </div>
+            {{else}}
+                <div class="col-xs-12 container-small">
+                    {{> [project-create]}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+
+    <div id="overlay-create" class="overlay overlay-simplegenie">
+        <div class="overlay-container">
+            <div class="overlay-content">
+                <button type="button" class="overlay-close" data-action="overlay-close">Close</button>
+                {{> [project-create]}}
+            </div>
+        </div>
+    </div>
+</template>

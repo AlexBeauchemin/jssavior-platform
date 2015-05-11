@@ -1,0 +1,61 @@
+<template name="home">
+    <div class="container container-home">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>JSSavior is a <strong>free</strong> and <strong>reactive</strong> javascript logging platform</h2>
+                <p>Sometimes, javascript errors can occur on your website, and there is no "built-in" ways to know when this happens. It's also pretty hard to test every use case possible in your website with every browsers. With JSSavior,
+                    add a single small javascript file on your website and you are ready to go. JSSavior will log every javascript errors with a lot of useful information so you can trace back the errors and fix it.</p>
+                <h3>Free</h3>
+                <p>JSSavior will log your errors for free. No monthly fees at all. No trial, no plans, no packages, no "pay for unlimited..." kind of thing. The total cost will always be <strong>0$</strong>. I gladly accept <a href="{{pathFor 'donate'}}">donations</a> to pay for the hosting though :).</p>
+                <h3>Reactive</h3>
+                <p>JSSavior is built with <a href="https://www.meteor.com/">meteor</a>. Meteor use nodejs and mongodb to create a reactive website. To put it simply, the database is directly binded to the page, so you dont need to refresh the page at all, new errors will be directly pushed to your screen without any action needed. So just keep your dashboard open and you will see new errors popping as soon as they happens.</p>
+                <h3>Simple</h3>
+                <p>Add this code to your website's header... and you are ready.</p>
+                <code>
+                    <p>&lt;script&gt; <br />
+                        &nbsp;&nbsp;var JSSaviorConfig = { <br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;projectId: 'xxxxxxxxx' <br />
+                        &nbsp;&nbsp;}; <br />
+                        &lt;/script&gt;</p>
+
+                    <p>&lt;script src="//cdn.jsdelivr.net/jssavior/latest/jssavior.min.js"&gt;&lt;/script&gt;</p>
+                </code>
+                <p><a href="{{pathFor 'setup'}}">See the complete doc</a></p>
+                <h3>Demo</h3>
+                <p>This is only a demo, more information/actions are available in a real project</p>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th><a href="#">#</a></th>
+                                <th><a href="#">Error</a></th>
+                                <th><a href="#">File (line)</a></th>
+                                <th><a href="#">Browser</a></th>
+                                <th><a href="#">Domain</a></th>
+                                <th><a href="#"><span class="glyphicon glyphicon-time"></span></a></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each demoData}}
+                            <tr class="error">
+                                <td>{{count}}</td>
+                                <td class="error-msg">{{message}}</td>
+                                <td class="error-file">{{file}} <span class="badge">{{line}}</span></td>
+                                <td>{{browser}}</td>
+                                <td>{{domain}}</td>
+                                <td class="time">{{dateFormatFromNow date}}</td>
+                            </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

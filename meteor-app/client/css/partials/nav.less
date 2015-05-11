@@ -1,0 +1,330 @@
+.burger {
+    .at2x('/img/sprite-burger.png', 27px);
+    cursor: pointer;
+    float: right;
+    height: 27px;
+    margin: 10px;
+    width: 27px;
+}
+
+.navbar-inverse {
+    background-color: @brand-primary;
+}
+
+.navbar {
+    padding: 0;
+
+    a {
+        color: #fff;
+    }
+
+    .navbar-toggle {
+        border: none;
+    }
+
+    .navbar-brand {
+        padding-bottom: 2px;
+        padding-left: 0;
+        padding-top: 0;
+
+        img {
+            height: 40px;
+            margin-top: 5px;
+            margin-left: 10px;
+        }
+    }
+
+    .navbar-nav {
+        margin-top: 0;
+    }
+
+    .navbar-nav > li {
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+
+        &.active {
+            &>a, &>a:hover, &>a:active, &>a:focus {
+                background-color: darken(@brand-primary, 10%);
+                border-top: 2px solid darken(@brand-primary, 10%);
+            }
+        }
+        &>a {
+            border-top: 2px solid @brand-primary;
+            color: #fff;
+
+            &:hover, &:active {
+                border-top: 2px solid #fff;
+            }
+        }
+
+        &.github, &.twitter {
+            border-bottom: none;
+            float: left;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            padding-top: 15px;
+            text-align: center;
+            width: 50%;
+        }
+
+//        display: inline-block;
+//        position: relative;
+//        -webkit-transform: translateZ(0);
+//        transform: translateZ(0);
+//        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+//
+//        &:before {
+//            pointer-events: none;
+//            position: absolute;
+//            z-index: -1;
+//            content: '';
+//            border-style: solid;
+//            -webkit-transition-duration: 0.3s;
+//            transition-duration: 0.3s;
+//            -webkit-transition-property: bottom;
+//            transition-property: bottom;
+//            left: calc(50% - 10px);
+//            bottom: 0;
+//            border-width: 10px 10px 0 10px;
+//            border-color: @brand-primary transparent transparent transparent;
+//        }
+//        &:hover:before, &:focus:before, &:active:before {
+//            bottom: -10px;
+//        }
+    }
+
+    .navbar-right {
+        color: #999;
+        font-size: 140%;
+        line-height: 20px;
+        margin: 0 0 10px;
+        text-align: left;
+        white-space: nowrap;
+        width: auto;
+
+        &.logged {
+            font-size: 14px;
+        }
+
+        img {
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+
+        .full-height {
+            line-height: 50px;
+        }
+
+        .name {
+            color: #fff;
+            display: inline-block;
+            max-width: 125px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .profil-data {
+            display: inline-block;
+
+            a {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &.navbar-fixed-top .navbar-collapse {
+        max-height: none;
+
+        a {
+            font-size: 140%;
+            padding: 1em 10px;
+            text-align: center;
+        }
+
+        .open {
+            .dropdown-menu {
+                a {
+                    font-size: 130%;
+                    padding: 1em 10px;
+                }
+            }
+        }
+    }
+
+    .open {
+        .navbar-right {
+            display: inline-block;
+            width: auto;
+
+//            &.image-spacing {
+//                padding-right: 50px;
+//            }
+        }
+    }
+
+    .projects.dropdown {
+        display: none;
+
+        .more-projects {
+            border-top: 1px solid #ccc;
+        }
+    }
+}
+
+.btn-google, .btn-github {
+    margin-bottom: 5px;
+    width: 100%;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .dropdown-toggle {
+        display: none;
+    }
+
+    .navbar-right {
+        display: none;
+    }
+
+    .open {
+        .navbar-right {
+            display: block;
+            width: 100%;
+        }
+
+        #login-dropdown-list {
+            display: block;
+            height: 0;
+            line-height: initial;
+
+            .dropdown-menu {
+                background-color: transparent;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                display: block;
+                left: inherit;
+                margin-bottom: 10px;
+                padding: 0;
+                position: relative;
+                text-align: center;
+                top: inherit;
+                width: 100%;
+
+                button {
+                    display: block;
+                    margin: 5px 0 0 0;
+                    padding: 5px 10px;
+
+                    &:first-child {
+                        margin-btop: 0;
+                    }
+                }
+            }
+        }
+
+        .burger {
+            background-position: 0 -27px;
+        }
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    .burger {
+        display: none;
+    }
+
+    .navbar-collapse {
+        float: left;
+    }
+
+    .navbar-nav {
+        max-height: 52px;
+    }
+
+    .navbar {
+        padding: 0 2%;
+
+        .navbar-nav>li {
+            border-bottom: none;
+            margin-bottom: 0;
+            width: auto;
+
+            &.github, &.twitter {
+                margin-bottom: 0;
+                width: auto;
+            }
+        }
+
+        .navbar-brand {
+            img {
+                height: 70px;
+                margin: 0;
+            }
+        }
+
+        .navbar-collapse {
+            a {
+                font-size: 100%;
+            }
+
+            .open .dropdown-menu {
+                a {
+                    font-size: 100%;
+                }
+            }
+        }
+
+        .navbar-right {
+            font-size: 14px;
+            margin-bottom: 0;
+
+            .dropdown-menu {
+                .btn {
+                    width: 100%;
+                }
+            }
+        }
+
+        &.navbar-fixed-top .navbar-collapse {
+            a {
+                font-size: 100%;
+                padding: 15px;
+                text-align: inherit;
+            }
+
+            .open .dropdown-menu {
+                a {
+                    font-size: 100%;
+                    padding: 10px 15px;
+                }
+            }
+        }
+
+        .projects { display: none; }
+        .projects.dropdown { display: inline-block; }
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .navbar {
+        .navbar-right {
+            .name {
+                max-width: 300px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1450px) {
+    .navbar {
+        .navbar-right {
+            margin-right: 0;
+        }
+    }
+}
