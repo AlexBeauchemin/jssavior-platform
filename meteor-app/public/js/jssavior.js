@@ -7,7 +7,7 @@
       context: null,
       id: '',
       keepConsoleErrors: true,
-      url: window.location.protocol + '//jssavior.com/api/send/'
+      url: window.location.protocol + '//www.jssavior.com/api/send/'
       //url: window.location.protocol + '//localhost:3000/api/send/'
     },
 
