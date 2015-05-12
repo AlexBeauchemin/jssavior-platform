@@ -2,7 +2,7 @@
 (function(window){
   'use strict';
   window.JSSavior = {
-    version: "1.2.2",
+    version: "1.2.3",
     config: {
       context: null,
       id: '',

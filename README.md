@@ -43,9 +43,9 @@ JSSavior should be accessible at http://localhost:3000
 How to use
 ================
 
-[Complete doc available on www.jssavior.com/setup](http://www.jssavior.com/setup)
+[Complete doc available on jssavior.com/setup](http://www.jssavior.com/setup)
 
-1) Create an account and log in on [www.jssavior.com](http://www.jssavior.com)
+1) Create an account and log in on [jssavior.com](http://www.jssavior.com)
 
 2) Create a project
 

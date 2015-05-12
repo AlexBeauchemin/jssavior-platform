@@ -96,9 +96,9 @@ Helpers = {
 
     if (!$overlay) return;
 
-    $overlay.find( '[data-action="overlay-close"]').off('click').on('click', function() { _this.toggleOverlay($overlay); });
-    $overlay.find('.overlay-content').off('click').on('click', function(e) { e.stopPropagation(); });
-    $overlay.off('click').on('click', function() { _this.toggleOverlay($overlay); });
+    $overlay.find( '[data-action="overlay-close"]').on('click', function() { _this.toggleOverlay($overlay); });
+    $overlay.find('.overlay-content').on('click', function(e) { e.stopPropagation(); });
+    $overlay.on('click', function() { _this.toggleOverlay($overlay); });
   },
 
   toggleOverlay: function ($overlay) {
