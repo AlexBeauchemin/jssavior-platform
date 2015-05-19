@@ -113,6 +113,8 @@ Helpers = {
       $overlay.removeClass('open');
       $overlay.addClass('close');
 
+      _this.$currentOverlay = null;
+
       var onEndTransitionFn = function(ev) {
         if (Modernizr.csstransitions) {
           if( ev.propertyName !== 'visibility' ) return;
