@@ -47,10 +47,11 @@
 
         td {
             cursor: pointer;
+            word-break: break-all;
+            word-wrap: break-word;
 
-            &.error-msg, &.error-file {
-                word-break: break-all;
-                word-wrap: break-word;
+            &.time {
+                word-break: inherit;
             }
         }
     }
