@@ -50,8 +50,12 @@
             word-break: break-all;
             word-wrap: break-word;
 
-            &.time { word-break: inherit; }
             &.error-msg { max-width: 800px; }
+
+            &:first-child,
+            &.time {
+                word-break: inherit;
+            }
         }
     }
 
